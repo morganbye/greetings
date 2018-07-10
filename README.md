@@ -1,6 +1,8 @@
-# (Greetings)
+# Greetings
 
 A demo project of a REST API with "Hello World" functionality
+
+[![Build Status](https://travis-ci.org/morganbye/greetings.svg?branch=dev)](https://travis-ci.org/morganbye/greetings)
 
 ## Getting Started
 
