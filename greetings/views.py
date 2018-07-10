@@ -10,6 +10,8 @@ from cornice import Service
 
 """Validation functions
 """
+
+
 def _create_token():
     """Create a user token
 
@@ -96,8 +98,9 @@ def post_hello(request):
     Returns:
         str: "Hello {name} World!"
     """
-    import pdb; pdb.set_trace()
-    return 'Hello {name} World!'.format(name=str(request))
+    message = 'Hello {name} World!'.format(name=str(request.validated['user']))
+
+    return message
 
 
 """ENDPOINT: users
