@@ -27,11 +27,11 @@ Checkout the latest release from Github
 $ git clone https://github.com/morganbye/api-demo.git
 ```
 
-With the virtual env, install the repo
+With the virtual env, install the repo with editable permissions
 
 ```
 $ cd greetings
-$ python setup.py develop
+$ pip install -e ".[testing]"
 ```
 
 The application can how be launched using the in-built Pyramid `pserve` command 
@@ -87,6 +87,50 @@ Explain what these tests test and why
 Give an example
 ```
 
+## Example usage
+
+### Hello World!
+
+A generic "Hello World!" example can be achived using no endpoints
+ 
+```
+$ curl http://localhost:6543/
+"Hello World!"
+
+```
+
+### User specific examples
+
+Trying to access the `users` endpoint with no authorize returns a 401 error.
+
+```
+$ curl http://localhost:6543/users
+{"status": 401, "message": "Unauthorized"}
+```
+
+Instead create a new user session
+
+```
+$ curl --request POST http://localhost:6543/users -d 'dave'
+{"token": "dave-12aae04cbf6d94320f1ff5fd5efa1173296a7097"}
+```
+
+Now call the users list with the token
+
+```
+$ curl http://localhost:6543/users -H "X-Messaging-Token:dave-12aae04cbf6d94320f1ff5fd5efa1173296a7097"
+{"users": ["dave"]}
+```
+
+We can then remove the user with
+
+Now call the users list with the token
+
+```
+$ curl --request DELETE http://localhost:6543/users -H "X-Messaging-Token:dave-12aae04cbf6d94320f1ff5fd5efa1173296a7097"
+{"Goodbye": "dave"}
+```
+
 ## Deployment
 
 <stub>
@@ -96,10 +140,6 @@ Give an example
 * [Pyramid](https://trypyramid.com/) - The web framework used
 * [Cornice](https://cornice.readthedocs.io/en/latest/) - REST web service management
 * [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/) - Project templating
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
